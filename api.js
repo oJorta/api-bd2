@@ -1,4 +1,4 @@
-/* const express = require('express')
+const express = require('express')
 const mysql = require('mysql');
 
 const app = express();
@@ -39,14 +39,5 @@ app.get('/consulta', (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
-
-module.exports = app;
- */
-const express = require("express");
-const app = express();
-
-app.get("/", (req, res) => res.send("Express on Vercel"));
-
-app.listen(3000, () => console.log("Server ready on port 3000."));
 
 module.exports = app;
