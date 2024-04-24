@@ -20,6 +20,8 @@ db.connect((err) => {
   console.log('Conectado ao banco de dados MySQL');
 });
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 // Rota para executar consulta
 app.get('/consulta', (req, res) => {
   const query = 'SELECT * FROM aluno';
