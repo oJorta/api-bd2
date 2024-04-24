@@ -20,7 +20,7 @@ db.connect((err) => {
   console.log('Conectado ao banco de dados MySQL');
 });
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get("/", (req, res) => res.send("APIzinha de Banco de Dados II"));
 
 // Rota para executar consulta
 app.get('/consulta', (req, res) => {
@@ -39,3 +39,5 @@ app.get('/consulta', (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+module.exports = app;
