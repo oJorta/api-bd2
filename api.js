@@ -6,10 +6,10 @@ const port = 3000;
 
 // Configuração do banco de dados
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'admin',
-  database: 'academico'
+  host: 'sql10.freesqldatabase.com',
+  user: 'sql10700912',
+  password: 'IAUnF37gkg',
+  database: 'sql10700912'
 });
 
 // Conectar ao banco de dados
