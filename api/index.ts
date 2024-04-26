@@ -1,5 +1,6 @@
 const express = require('express')
 const mysql = require('mysql');
+const cors = require('cors');
 
 const app = express();
 const port = 3001;
@@ -19,6 +20,10 @@ db.connect((err) => {
   }
   console.log('Conectado ao banco de dados MySQL');
 });
+
+app.use(cors({
+  origin: '*'
+}));
 
 app.get("/", (req, res) => res.send("APIzinha de Banco de Dados II"));
 
