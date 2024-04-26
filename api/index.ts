@@ -35,6 +35,32 @@ app.get('/consulta', (req, res) => {
   });
 });
 
+// Rota para obter os nomes de todas as tabelas
+app.get('/tabelas', (req, res) => {
+  db.query('SHOW TABLES', (err, result) => {
+    if (err) {
+      res.status(500).send('Erro ao obter nomes das tabelas');
+      throw err;
+    }
+    const tables = result.map(row => row[`Tables_in_${db.config.database}`]);
+    res.json(tables);
+  });
+});
+
+// Rota para consultar todos os registros de uma tabela específica
+app.get('/consulta/:tabela', (req, res) => {
+  const tabela = req.params.tabela;
+  const query = `SELECT * FROM ${tabela}`;
+  
+  db.query(query, (err, result) => {
+    if (err) {
+      res.status(500).send('Erro ao executar a consulta');
+      throw err;
+    }
+    res.json(result);
+  });
+});
+
 // Iniciar servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
