@@ -72,12 +72,12 @@ app.get('/procedure/:procedure/:param', (req, res) => {
   const procedureName = req.params.procedure;
   const param = req.params.param;
 
-  db.query(`CALL ${procedureName}(${param})`, (err, result) => {
+  db.query(`CALL ${procedureName}(${param})`, (err, results, fields) => {
     if (err) {
       res.status(500).send('Erro ao executar a procedure');
       throw err;
     }
-    res.json(result);
+    res.json(results);
   });
 });
 
