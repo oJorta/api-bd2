@@ -27,19 +27,6 @@ app.use(cors({
 
 app.get("/", (req, res) => res.send("APIzinha de Banco de Dados II"));
 
-// Rota para executar consulta
-app.get('/consulta', (req, res) => {
-  const query = 'SELECT * FROM aluno';
-  
-  db.query(query, (err, result) => {
-    if (err) {
-      res.status(500).send('Erro ao executar a consulta');
-      throw err;
-    }
-    res.json(result);
-  });
-});
-
 // Rota para obter os nomes de todas as tabelas
 app.get('/tabelas', (req, res) => {
   db.query('SHOW TABLES', (err, result) => {
@@ -60,6 +47,34 @@ app.get('/consulta/:tabela', (req, res) => {
   db.query(query, (err, result) => {
     if (err) {
       res.status(500).send('Erro ao executar a consulta');
+      throw err;
+    }
+    res.json(result);
+  });
+});
+
+// Rota para consultar todos os registros de uma view específica
+app.get('/view/:nome_view', (req, res) => {
+  const view = req.params.nome_view;
+  const query = `SELECT * FROM ${view}`;
+  
+  db.query(query, (err, result) => {
+    if (err) {
+      res.status(500).send('Erro ao executar a consulta');
+      throw err;
+    }
+    res.json(result);
+  });
+});
+
+// Rota para chamar uma procedure
+app.get('/procedure/:procedure/:param', (req, res) => {
+  const procedureName = req.params.procedure;
+  const param = req.params.param;
+
+  db.query(`CALL ${procedureName}(${param})`, (err, result) => {
+    if (err) {
+      res.status(500).send('Erro ao executar a procedure');
       throw err;
     }
     res.json(result);
