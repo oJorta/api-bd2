@@ -7,10 +7,10 @@ const port = 3001;
 
 // Configuração do banco de dados
 const db = mysql.createConnection({
-  host: 'sql10.freesqldatabase.com',
-  user: 'sql10700912',
-  password: 'IAUnF37gkg',
-  database: 'sql10700912'
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'academico2'
 });
 
 // Conectar ao banco de dados
@@ -67,11 +67,24 @@ app.get('/view/:nome_view', (req, res) => {
   });
 });
 
-// Rota para chamar uma procedure
+// Rota para chamar uma procedure sem parametros
+app.get('/procedure/:procedure', (req, res) => {
+  const procedureName = req.params.procedure;
+  
+  db.query(`CALL ${procedureName}()`, (err, results, fields) => {
+    if (err) {
+      res.status(500).send('Erro ao executar a procedure');
+      throw err;
+    }
+    res.json(results);
+  });
+});
+
+// Rota para chamar uma procedure com parametros
 app.get('/procedure/:procedure/:param', (req, res) => {
   const procedureName = req.params.procedure;
-  const param = req.params.param;
-
+  const param = req.params.param || '';
+  
   db.query(`CALL ${procedureName}(${param})`, (err, results, fields) => {
     if (err) {
       res.status(500).send('Erro ao executar a procedure');
